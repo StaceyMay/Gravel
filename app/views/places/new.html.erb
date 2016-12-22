@@ -1,0 +1,30 @@
+<div class="centered">
+
+ <header><h1>Add Place</h1></header>
+
+  <%= form_tag '/places', method: :post do %>
+    <p>
+      <%= label_tag :name %>
+      <%= text_field_tag :name %>
+
+      <%= label_tag :phone %>
+      <%= text_field_tag :phone%>
+
+      <%= label_tag :place %>
+      <%= text_field_tag :search, params[:search],:id => 'geo-input' %>
+
+
+    <%= hidden_field_tag :trip_id, params[:trip_id], class: "form-control" %>
+    <%= hidden_field_tag :longitude, class: "form-control" %>
+    <%= hidden_field_tag :latitude, class: "form-control" %>
+
+      <%= submit_tag "Add Places" %>
+    </p>
+
+  </div>
+  <% end %>
+</div>
+
+
+<p onload="loadOnce()"> </p>
+

@@ -4,8 +4,19 @@
     <title>Gravel</title>
     <%= csrf_meta_tags %>
 
+    <script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places"></script>
+    <script src="jquery.geocomplete.js"></script> 
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <% flash.each do |name, message| %>
+    <div class="alert alert-<%= name %> alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <%= message %>
+  </div>
+  <% end %>
+
   </head>
 
   <body>

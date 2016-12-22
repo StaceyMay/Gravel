@@ -1,0 +1,10 @@
+<h1><%= @place.name %></h1>
+
+<p>Address: <%= @place.address %></p>
+<p>Coordinates: <%= @place.latitude %> <%= @place.longitude %></p>
+
+
+<%= link_to "Add Comment", "/places/#{@place.id}/comment/new" %>
+
+<%= link_to "Delete Place", "/places/#{@place.id}", method: :delete %> 
+

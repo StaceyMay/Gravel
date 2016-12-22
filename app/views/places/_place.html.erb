@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-block">
+    <ul>
+      <%= render @places %>
+    </ul>
+  </div>
+</div>
+
+
+
+<li>
+  <%= link_to place.name, place_path(place) %>
+  visited by <strong><%= place.trip_id %></strong>
+</li>

@@ -1,0 +1,17 @@
+<h1> Trips: </h1>
+
+
+<% @trips.each do |trip|%>
+<div>
+  <%= link_to trip.name,  "/trips/#{trip.id}"%>
+</div>
+<% end -%>
+
+<%= link_to "Start Trip!" ,"/trips/new", class: 'btn btn-info btn-md' %>
+
+<%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>`
+
+<blockquote>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+  <small>Someone famous in <cite title="Source Title">Source Title</cite></small>
+</blockquote>

@@ -1,0 +1,11 @@
+<header><h1 class="display-4">Places</h1></header>
+
+<%= link_to "Add Place" ,"/places/new", class: 'btn btn-info btn-md' %>
+
+<% @places.each do |place|%>
+  <div>
+  <%= place.name %>
+  <%= place.address %>
+  <%= place.phone %>
+  </div>
+<% end -%>

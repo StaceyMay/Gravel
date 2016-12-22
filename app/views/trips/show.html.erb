@@ -1,0 +1,15 @@
+<h1><%= @trip.name %></h1>
+
+<% @trip.places.all.each do |place|%>
+<p>
+<%= link_to place.name, "/places/#{place.id}"%>
+</p>
+<% end -%>
+
+<p><% if @trip.trip_comments.first %>
+<p><%= @trip.trip_comments.first.comment%></p>
+<% end -%>
+
+<%= link_to "Add Place" ,"/places/new?trip_id=#{@trip.id}", class: 'btn btn-info btn-md' %>
+<%= link_to "Delete trip", "/trips/#{@trip.id}", class: 'btn btn-danger btn-md', method: :delete %> 
+
