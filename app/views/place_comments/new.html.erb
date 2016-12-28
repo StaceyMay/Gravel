@@ -1,1 +1,13 @@
-test
+<h1> Please enter comment for trip: </h1>
+
+<%= form_tag "/places/#{params[:id]}/comments", method: :post do %>
+
+  <div>
+  <%= label_tag :comment%>
+  <%= text_field_tag :comment %>
+  </div>
+
+  <div>
+  <%= submit_tag "Save Comment"%>
+  </div>
+<% end -%>

@@ -4,7 +4,11 @@
 <p>Coordinates: <%= @place.latitude %> <%= @place.longitude %></p>
 
 
-<%= link_to "Add Comment", "/places/#{@place.id}/comment/new" %>
+<p><% if @place.place_comments.first %>
+<p>"<%= @place.place_comments.first.comment%>"</p>
+<% end -%>
+
+<%= link_to "Add Comment", "/places/#{@place.id}/comments/new", class: 'btn btn-success btn-md'  %>
 
 <%= link_to "Delete Place", "/places/#{@place.id}", method: :delete %> 
 

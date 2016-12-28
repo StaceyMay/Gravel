@@ -14,12 +14,17 @@ Rails.application.routes.draw do
 
   get "/trips", to: "trips#index"
   get "/trips/new", to: "trips#new"
-  post "/trips", to: "trips#create"
+  post "/trips/", to: "trips#create"
   get "/trips/:id", to: "trips#show"
   delete "/trips/:id", to: "trips#destroy"
 
+  post "/user_trips", to: "user_trips#create"
+
   get "/trips/:id/comments/new", to: "trip_comments#new"
   post "/trips/:id/comments", to: "trip_comments#create"
+
+  get "/places/:id/comments/new", to: "place_comments#new"
+  post "/places/:id/comments", to: "place_comments#create"
 
   get "/signup", to: "users#new"
   post "/users", to: "users#create"
