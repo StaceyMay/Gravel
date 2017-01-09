@@ -1,0 +1,15 @@
+<div>
+<%= form_tag "/invited", method: :post do %>
+  <div>
+  <%= label_tag :slug, "Trip ID:" %>
+  <%= text_field_tag :slug %>
+  </div>
+  <div>
+  <%= label_tag :password, "Password:" %>
+  <%= text_field_tag :password %>
+  </div>
+  <%= submit_tag "Join Trip!" %>
+
+<%end%>
+</div>
+

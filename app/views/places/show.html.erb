@@ -1,6 +1,7 @@
 <h1><%= @place.name %></h1>
 
 <p>Address: <%= @place.address %></p>
+<p>Address: <%= @place.phone %></p>
 <p>Coordinates: <%= @place.latitude %> <%= @place.longitude %></p>
 
 
@@ -8,7 +9,8 @@
 <p>"<%= @place.place_comments.first.comment%>"</p>
 <% end -%>
 
-<%= link_to "Add Comment", "/places/#{@place.id}/comments/new", class: 'btn btn-success btn-md'  %>
+<%= link_to "Add Comment", "/places/#{@place.id}/comments/new", class: 'btn btn-default btn-md'  %>
+<%= link_to "Add Expense", "/places/#{@place.id}/expenses/new", class: 'btn btn-default btn-md'  %>
 
-<%= link_to "Delete Place", "/places/#{@place.id}", method: :delete %> 
+<%= link_to "Delete Place", "/places/#{@place.id}", class: 'btn btn-default btn-md',  method: :delete %> 
 

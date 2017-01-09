@@ -1,6 +1,0 @@
-<h1> You have created a new trip! </h1>
-
-  <%= form_tag "/user_trips", method: :post do %>
-  <%=hidden_field_tag :trip_id, @trip.id %>
-  <%= submit_tag "Go Back", class: "btn btn-success" %>
-  <%end%>

@@ -36,6 +36,8 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'geocoder'
 gem 'geocomplete_rails'
 gem 'gon'
+#slug for trip invites
+gem 'friendly_id', '~> 5.1.0' 
 
 #FB login gems
 gem 'devise'
@@ -51,6 +53,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'annotate'
   gem 'dotenv-rails'
+  gem 'rspec-rails', '~> 3.5'
 end
 
 group :development do

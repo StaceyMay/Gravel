@@ -1,0 +1,14 @@
+<%= form_tag "/trips/#{@trip.id}", method: :patch do %>
+    <div>
+    <%= label_tag :name, "Name:" %>
+    <%=text_field_tag :name, @trip.name %>
+    </div>
+    <div>
+    <%= label_tag :password, "Password:" %>
+    <%=text_field_tag :password, @trip.password%>
+    </div>
+  <div>  
+  <%= submit_tag "Save Changes", class: "btn btn-info btn-md"%>
+  </div>
+
+  <%end%>

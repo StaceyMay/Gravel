@@ -3,24 +3,27 @@
  <header><h1>Add Place</h1></header>
 
   <%= form_tag '/places', method: :post do %>
-    <p>
+
+    <div>
       <%= label_tag :name %>
       <%= text_field_tag :name %>
-
+    </div>
+    <div>
       <%= label_tag :phone %>
       <%= text_field_tag :phone%>
-
+    </div>
+    <div>
       <%= label_tag :place %>
-      <%= text_field_tag :search, params[:search],:id => 'geo-input' %>
-
+      <%= text_area_tag :search, params[:search],:id => 'geo-input', :maxlength=>"254" %>
+    </div>
 
     <%= hidden_field_tag :trip_id, params[:trip_id], class: "form-control" %>
     <%= hidden_field_tag :longitude, class: "form-control" %>
     <%= hidden_field_tag :latitude, class: "form-control" %>
 
-      <%= submit_tag "Add Places" %>
-    </p>
-
+    <div>
+    <%= submit_tag "Add Places" %>
+    </div>
   </div>
   <% end %>
 </div>

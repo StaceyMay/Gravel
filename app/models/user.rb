@@ -29,5 +29,14 @@ class User < ApplicationRecord
     end
   end
 
+
+  def currently_admin?(trip)
+    if UserTrip.find_by(user_id: self.id, trip_id: trip.id, admin: true) != nil
+      return true
+    else
+      return false
+    end
+  end
+
 end
 

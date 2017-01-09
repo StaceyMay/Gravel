@@ -4,13 +4,11 @@ before_action :authenticate_user!
   def index
     # @trips = Trip.all
 
-
     @trips = current_user.trips.all
   end
 
   def show
     @trip = Trip.find_by(id: params[:id])
-
 
     @locs = []
     count = 0
@@ -29,9 +27,26 @@ before_action :authenticate_user!
   end
 
   def create
-      @trip = Trip.new(name: params[:name])
+      @trip = Trip.new(name: params[:name], password: SecureRandom.hex(3))
       @trip.save
+      @new = UserTrip.new(user_id: current_user.id, trip_id: @trip.id, admin: true)
+      @new.save
+      redirect_to "/trips/#{@trip.id}"
       # redirect_to "/trips/#{@trip.id}"
+  end
+
+  def edit
+    @trip = Trip.find_by(id: params[:id])
+  end
+
+  def update
+    trip = Trip.find_by(id: params[:id])
+    trip.assign_attributes(name: params[:name], password: params[:password])
+    trip.save
+
+    flash[:info] =  "You have updated your trip!"
+
+    redirect_to "/trips/#{trip.id}"
   end
 
   def destroy
@@ -40,6 +55,16 @@ before_action :authenticate_user!
 
     redirect_to "/trips"
   end
+
+  # def send_trip_mail
+  # @trip = Trip.find(params[:id])
+
+
+  # TripmailerMailer.trip_send(@trip).deliver
+  # flash[:notice] = "Invite has been sent."
+  # redirect_to "/trips/#{@trip.id}"
+  # end
+
 
   
 end
