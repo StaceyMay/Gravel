@@ -6,6 +6,7 @@ class Trip < ApplicationRecord
   has_many :trip_comments
   has_many :trip_categories
   has_many :categories, through: :trip_categories
+  has_one :itinerary 
 
   extend FriendlyId
   friendly_id :slug_candidates, use: :slugged

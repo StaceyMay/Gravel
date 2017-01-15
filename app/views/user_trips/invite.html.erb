@@ -1,15 +1,27 @@
-<div>
-<%= form_tag "/invited", method: :post do %>
-  <div>
-  <%= label_tag :slug, "Trip ID:" %>
-  <%= text_field_tag :slug %>
-  </div>
-  <div>
-  <%= label_tag :password, "Password:" %>
-  <%= text_field_tag :password %>
-  </div>
-  <%= submit_tag "Join Trip!" %>
-
-<%end%>
+<div class="container">
+<form class="form-horizontal">
+  <fieldset>
+    <legend>Enter Trip Information:</legend>
+    <div class="form-group ">
+    <%= form_tag "/invited", method: :post do %>
+      <label for="inputEmail" class="col-lg-2 control-label">Trip ID:</label>
+      <div class="col-lg-10">
+        <%= text_field_tag :slug %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+      <div class="col-lg-10">
+        <%= text_field_tag :password %>
+      </div>
+    </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <%end%>
+      </div>
+    </div>
+  </fieldset>
+</form>
 </div>
-

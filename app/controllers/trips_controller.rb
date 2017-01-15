@@ -1,5 +1,6 @@
 class TripsController < ApplicationController
-before_action :authenticate_user!
+before_action :authenticate_user!, except: [:home]
+
 
   def index
     # @trips = Trip.all

@@ -53,4 +53,7 @@ before_action :authenticate_user!
     redirect_to "/trips/#{@place.trip_id}"
   end
 
+  def itinerary
+    @itinerary = []
+  end
 end

@@ -1,0 +1,18 @@
+<h2> Please Add Expense</h2>
+<div>
+
+<%= form_tag "/places/#{params[:id]}/expenses", method: :post do %>
+  <div>
+  <%= label_tag :amount %>
+  <%= text_field_tag :amount %>
+  </div>
+  <div>
+  <%= label_tag :description %>
+  <%= text_area_tag :description %>
+  </div>
+  <%=hidden_field_tag :place_id, params[:id]  %>
+  <div>
+  <%= submit_tag "Add Expense" %>
+  </div>
+<%end%>
+</div>

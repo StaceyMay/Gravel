@@ -1,0 +1,9 @@
+  
+  <%= form_tag '/places', method: :post do %>
+
+  <%= datetime_field_tag :date %>
+
+    <div>
+    <%= submit_tag "Add Places" %>
+    </div>
+  <% end %>

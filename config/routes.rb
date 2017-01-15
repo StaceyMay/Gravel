@@ -6,16 +6,18 @@ Rails.application.routes.draw do
 
   # get "/jquery.geocomplete.js"
 
+   get "/", to: "home_pages#home"
+
   get "/places", to: "places#index"
   get "/places/new", to: "places#new"
   post "/places", to: "places#create"
   get "/places/:id", to: "places#show"
   delete "/places/:id", to: "places#destroy"
 
-  get "/", to: "trips#index"
+
   get "/trips", to: "trips#index"
   get "/trips/new", to: "trips#new"
-  post "/trips/", to: "trips#create"
+  post "/trips", to: "trips#create"
   get "/trips/:id/edit", to: "trips#edit"
   patch "/trips/:id", to: "trips#update"
   get "/trips/:id", to: "trips#show"
@@ -31,6 +33,11 @@ Rails.application.routes.draw do
   get "/places/:id/comments/new", to: "place_comments#new"
   post "/places/:id/comments", to: "place_comments#create"
 
+  get "/trips/:id/itinerary/new", to: "itinerary_places#new"
+  post "/trips/:id/itinerary", to: "itinerary_places#create"
+
+  get "/places/:id/expenses/new", to: "expenses#new"
+  post "/places/:id/expenses", to: "expenses#create"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
