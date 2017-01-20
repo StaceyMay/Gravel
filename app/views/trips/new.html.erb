@@ -1,12 +1,16 @@
-<h2> Please Name Your Trip! </h2>
-<div>
-<%= form_tag "/trips", method: :post do %>
+
+<div class="container">
+  <fieldset>
+    <legend>Enter Trip Information:</legend>
+
+    <div>
+    <%= form_tag "/trips", method: :post do %>
   
-  <%= label_tag :name %>
+  <%= label_tag :name, "Trip name:" %>
   <%= text_field_tag :name %>
 
   <%= submit_tag "Start Trip!" %>
 
-<%end%>
+    <%end%>
+  </fieldset>
 </div>
-

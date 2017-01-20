@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :expenses
   has_many :place_comments
   has_many :trip_comments
+  has_many :votes
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -31,10 +32,27 @@ class User < ApplicationRecord
 
 
   def currently_admin?(trip)
-    if UserTrip.find_by(user_id: self.id, trip_id: trip.id, admin: true) != nil
-      return true
+    if trip
+      if UserTrip.find_by(user_id: self.id, trip_id: trip.id, admin: true) != nil
+        return true
+      else
+        return false
+      end
+    end
+    return false
+  end
+
+  def first_name
+    if name.split.count > 1
+      name.split[0..-2].join(' ')
     else
-      return false
+      name
+    end
+  end
+
+  def last_name
+    if name.split.count > 1
+      name.split.last
     end
   end
 

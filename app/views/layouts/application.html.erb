@@ -12,7 +12,7 @@
   </head>
 
   <body>
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default" style="z-index: 1000">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -50,6 +50,10 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
+        <li><a href="/trips/new">New Trip</a></li>
+        <% else %>
+        <% end %>
+        <% if current_user %>
         <li><a href="/users/sign_out">Logout</a></li>
         <% else %>
         <li><a href="/users/sign_in">Login</a></li>
@@ -61,7 +65,7 @@
   <% flash.each do |name, message| %>
     <div class="alert alert-<%= name %> fade in" role="alert">
     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <%= message %>
+    <center><%= message %></center>
   </div>
     <% end %>
     <%= yield %>

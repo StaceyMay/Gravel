@@ -1,17 +1,16 @@
-
 <div class="container">
   <fieldset>
-    <legend>Enter Place Information:</legend>
+    <legend>Edit Trip Information:</legend>  
 
-  <%= form_tag '/places', method: :post do %>
+  <%= form_tag '/places/#{params[:id]}', method: :patch do %>
 
     <div class="form-group ">
       <%= label_tag :name %>
-      <%= text_field_tag :name, nil, placeholder: "Place Name", class: 'input-field' %>
+      <%= text_field_tag :name, @place.name, class: 'input-field' %>
     </div>
     <div class="form-group ">
       <%= label_tag :phone %>
-      <%= text_field_tag :phone,nil, placeholder: "Optional", class: 'input-field'%>
+      <%= text_field_tag :phone, @place.phone, class: 'input-field'%>
     </div>
     <div class="form-group ">
       <%= label_tag :place %>
@@ -23,13 +22,7 @@
     <%= hidden_field_tag :latitude, class: "form-control" %>
 
     <div class="form-group ">
-    <%= submit_tag "Add Places" %>
+    <%= submit_tag "Update Place" %>
     </div>
   </div>
   <% end %>
-  </fieldset>
-</div>
-
-
-<p onload="loadOnce()"> </p>
-

@@ -32,6 +32,7 @@ before_action :authenticate_user!
     @place.save
 
     redirect_to "/trips/#{@place.trip_id}"
+
     # if @place.save
     #   flash[:success] = "Place added!"
     #   redirect_to root_path
@@ -40,11 +41,17 @@ before_action :authenticate_user!
     # end
   end
 
-  # private
+  def edit
+    @place = Place.find_by(id: params[:id])
+  end
 
-  # def place_params
-  #   params.require(:place).permit(:name, :address)
-  # end
+  def update
+    place = place.find_by(id: params[:id])
+    place.assign_attributes(address: params[:search],phone: params[:phone], name: params[:name], trip_id: params[:trip_id] , latitude: 0, longitude: 0)
+    place.save
+
+    flash[:info] =  "You have updated your place!"
+  end
 
   def destroy
     @place = Place.find_by(id: params[:id])

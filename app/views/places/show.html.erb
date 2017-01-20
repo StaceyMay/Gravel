@@ -1,17 +1,49 @@
-<h1><%= @place.name %></h1>
+  <div class="container">
 
-<p>Address: <%= @place.address %></p>
-<p>Address: <%= @place.phone %></p>
-<p>Coordinates: <%= @place.latitude %> <%= @place.longitude %></p>
+      <fieldset>
+      <legend><%= @place.name %> <span class="pull-right"><a href="/places/<%=@place.id%>/edit">Edit</a></span></legend>
+      <p>Address: <%= @place.address %></p>
+      <p>Address: <%= @place.phone %></p>
+      <p>Coordinates: <%= @place.latitude %> <%= @place.longitude %></p>
+
+      <%= link_to "Add Comment", "/places/#{@place.id}/comments/new", class: 'btn btn-default btn-md'  %>
+      <%= link_to "Add Expense", "/places/#{@place.id}/expenses/new", class: 'btn btn-default btn-md'  %>
+
+      <%= link_to "Delete Place", "/places/#{@place.id}", class: 'btn btn-default btn-md',  method: :delete %>
+        <div> 
+    <a class="pull-right" href="/trips/<%=@place.trip_id%>">Back to Trip</a> 
+  </div>
+      </fieldset> 
+  </div>
 
 
-<p><% if @place.place_comments.first %>
-<p>"<%= @place.place_comments.first.comment%>"</p>
-<% end -%>
+<div class="row">
+  <div class="container">
+    <fieldset class="col-md-4 pre-scrollable">
+      <legend> Expenses </legend>
+      <table>
+        <% @place.expenses.each do |expense|%>
+          <tr>
+            <td><%= expense.description%></td>
+            <td>$<%= expense.amount%> </td>
+            <td> - <i><%= expense.user.name%></i></td>
+          <%end%>
+        </tr>
+      </table>
+    </fieldset>
+    <fieldset class="col-md-5 pre-scrollable">
+      <legend> Comments</legend>
+      <% if @place.place_comments.first %>
+      <% @place.place_comments.order(created_at: :desc ).each do |comment| %>
+          <div id="comment">
+          "<%= comment.comment%>" </br>
+          - <%= comment.user.name%>
+          at: <%= comment.created_at.strftime("%D - %r")%>
+          </div>
+      <%end%>
+      <% end -%>
 
-<%= link_to "Add Comment", "/places/#{@place.id}/comments/new", class: 'btn btn-default btn-md'  %>
-<%= link_to "Add Expense", "/places/#{@place.id}/expenses/new", class: 'btn btn-default btn-md'  %>
-
-<%= link_to "Delete Place", "/places/#{@place.id}", class: 'btn btn-default btn-md',  method: :delete %> 
-
+    </fieldset>
+  </div>
+</div>
 

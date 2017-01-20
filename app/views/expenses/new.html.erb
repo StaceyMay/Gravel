@@ -1,5 +1,6 @@
-<h2> Please Add Expense</h2>
-<div>
+<div class="container">
+  <fieldset>
+    <legend>Please Enter Expense:</legend>
 
 <%= form_tag "/places/#{params[:id]}/expenses", method: :post do %>
   <div>
@@ -15,4 +16,5 @@
   <%= submit_tag "Add Expense" %>
   </div>
 <%end%>
+  </fieldset>
 </div>

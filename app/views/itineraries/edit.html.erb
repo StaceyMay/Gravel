@@ -1,0 +1,15 @@
+<div class="container">
+
+<%= form_tag "/itinerary/#{params[:itinerary_id]}", method: :patch do %>
+  <% @ips.each do |place| %>
+    <div class="row">
+      <h4><%= label_tag place.place.name %>:</h4>
+      <%= datetime_select :when, "#{place.id}[]" %>
+    </div>
+  <%end%>
+
+  <div style="padding-top: 20px">
+    <%= submit_tag "Submit", class: "btn btn-info btn-md"%>
+  </div>
+<%end%>
+</div>

@@ -1,76 +1,110 @@
 <div class="row">
 <div class="container">
-<h1 class="pull-left"><%= @trip.name %></h1>   
-    <div class="btn-group">
-      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-        Trip Settings
-        <span class="caret"></span>
-      </a>
-      <ul class="dropdown-menu">
-        <li><%= mail_to " ", "Invite Friends to Trip", subject: "Come Join My #{@trip.name} Trip", body: "Trip ID: #{@trip.slug} Trip Password: #{@trip.password} Go to http://localhost:3000/invite to join"%></li>
-        <li><%= link_to "Go Back to All Trips" ,"/trips"%></li>
-        <li><%= link_to "Add Place" ,"/places/new?trip_id=#{@trip.id}"%></li>
-        <li> <%= link_to "Add Comment", "/trips/#{@trip.id}/comments/new"%></li>
-        <li><%= link_to "Delete trip", "/trips/#{@trip.id}", method: :delete %></li>
-       </ul>
-    </div>
+  <h1 class="pull-left col-lg-2"><%= @trip.name %></h1>   
+      <div class="btn-group col-lg-2" style="padding-top: 25px">
+        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+          Trip Settings
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><%= mail_to " ", "Invite Friends to Trip", subject: "Come Join My #{@trip.name} Trip", body: "Trip ID: #{@trip.slug} Trip Password: #{@trip.password} Go to http://localhost:3000/invite to join"%></li>
+          <li><%= link_to "Go Back to All Trips" ,"/trips"%></li>
+          <li><%= link_to "Add Place" ,"/places/new?trip_id=#{@trip.id}"%></li>
+          <li> <%= link_to "Add Comment", "/trips/#{@trip.id}/comments/new"%></li>
+         </ul>
+      </div>
+  <div class="btn-group col-lg-2" style="padding-top: 25px">  
+  <%= mail_to " ", "Invite Friends to Trip", subject: "Come Join My #{@trip.name} Trip", body: "Trip ID: #{@trip.slug} Trip Password: #{@trip.password} Go to http://localhost:3000/invite to join", class: 'btn btn-default btn-md' %>
   </div>
+  <% if current_user.currently_admin?(@trip)%>
+  <div class="btn-group col-lg-2 pull-right" style="padding-top: 25px">
+        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true"> Admin Settings:
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href= "/trips/<%=@trip.id%>/edit"> Edit Trip</a></li>
+          <li><a href= "/itinerary/<%=@trip.itinerary.id%>"> Show Itinerary</a></li>
+          <li><a href= "/itinerary/<%=@trip.itinerary.id%>/edit"> Edit Itinerary</a></li>
+          <li><%= link_to "Delete trip", "/trips/#{@trip.id}", method: :delete %></li>
+         </ul>
+      </div>
+  <%end%>
+ </div>
+</div>
+</div>
 
-<% if current_user.currently_admin?(@trip)%>
-<div class="btn-group col-lg-2 pull-right">
-      <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="true"> Admin Settings:
-        <span class="caret"></span>
-      </a>
-      <ul class="dropdown-menu">
-        <li><a href= "/trips/<%=@trip.id%>/edit"> Edit Trip:</a></li>
-        <li><a href="#">Dropdown link</a></li>
-       </ul>
-    </div>
+<% if !@trip.places.first%>
+<div class="container">
+<center>
+ <h2>No places, add place <a href="/places/new?trip_id=<%=@trip.id%>" style="color: #66c0b7"> here. </a> </h2>
+ </center>
+</div>
 <%end%>
-</div>
-</div>
-
 
 <div class="row">
+<div class="container">
 <% if @trip.places.first %>
-  <div class="well col-md-2 pre-scrollable">
-  <%= form_tag "/trips/#{params[:id]}/comments", method: :post do %>
-    <% @trip.places.all.each do |place|%>
-    <div>
-    <%= check_box_tag(place.name, {:remote => true, :onclick => ("javascript: document.list.submit();")}) %>
-    <a href="/places/<%=place.id%>"><%= label_tag(place, place.name) %></a>
-    </div>
-    <% end -%>
-    <%= submit_tag "Add to Itinerary", class: 'btn btn-default btn-md'%>
-  </div>
-  <%end%>
-  <%end%>
-  <center>
+    <div ng-app="app">
+      <div ng-controller="pageCtrl" ng-init="initialize(<%= @trip.id %>)">
+    <div class="form-horizontal col-md-3 pre-scrollable">
+    <fieldset>
+    <legend> Places:</legend>
+      <p style="font-size: 12px"><i> *Click (+) to vote for place. </i></p>
+    <%= form_tag "/itinerary/#{@trip.itinerary.id}", method: :post do %>
+       <% @trip.places.all.each do |place|%>
+      <div>
+        <%if current_user.currently_admin?(@trip)%>
+        <%= check_box_tag "itinerary_places[]", place.id %>
+        <%end%>
+      <% hidden_field_tag :itinerary_id, @trip.itinerary.id %>
+      <a href="/places/<%=place.id%>"><%= label_tag(place, place.name)%></a> <span id="place-<%=place.id%>"><%=place.votes.count%></span> votes.
 
+        <% if !Vote.find_by(user_id: current_user.id, place_id: place.id) %>
+          <a id="vote-<%=place.id%>" ng-click="addVote(<%= place.id %>, <%= current_user.id %>)">(+)</a>
+        <% end %>
+      <% end -%>
+    </div>
+    <%if current_user.currently_admin?(@trip)%>
+    <%= submit_tag "Add to Itinerary", class: 'btn btn-default btn-md'%>
+    <%end%>
+  <%end%>
+  <%= link_to "Add Place" , "/places/new?trip_id=#{@trip.id}", class: 'btn btn-default btn-md'%>
+    <%end%>
+  </div>
+  </div>
+  </fieldset>
+    </div>
 
 
   <% if @locs.first%>
-<head>
+  <head>
   <title>Trip with Markers</title>
   <script src="http://maps.google.com/maps/api/js?keyAIzaSyBphYEHxnocJdbTswQnh8YEAAz1jfPOmo0s?sensor=false" type="text/javascript"></script>
-</head>
-<body>
-  <div id="map" style="height: 400px; width: 800px;">
-</div>
-<script type="text/javascript">
+  </head>
+  <body>
+ 
+  <div class="col-md-6" id="map" style="height: 345px; width: 569px;">
+  </div>
+
+  <script type="text/javascript">
     var locations = <%=@locs.to_json.html_safe%>;
+
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 10,
       center: new google.maps.LatLng(<%=@locs.first[1].to_json.html_safe%>, <%=@locs.first[2].to_json.html_safe%>),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
+
     var infowindow = new google.maps.InfoWindow();
+
     var marker, i;
+
     for (i = 0; i < locations.length; i++) { 
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
         map: map
       });
+
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
           infowindow.setContent(locations[i][0]);
@@ -79,20 +113,23 @@
       })(marker, i));
     }
   </script>
-</body>
-<%end%>
-  </center>
-  <div class="well col-md-3 pre-scrollable pull-right" >
-  <h3> Please enter comment for trip: </h3>
+  </body>
+  <%end%>
+
+  <div class="form-horizontal col-md-3 pre-scrollable pull-right" >
+  <fieldset>
+  <legend> Please enter comment for trip: </legend>
 
   <%= form_tag "/trips/#{params[:id]}/comments", method: :post do %>
 
     <div>
     <center>
     <%= text_area_tag :comment %>
+    </center>
     </div>
 
     <div>
+    <center>
     <%= submit_tag "Save Comment"%>
     </div>
     </center>
@@ -108,7 +145,54 @@
     <%end%>
     <% end -%>
   </div>
+  </fieldset>
 </div>
+</div>
+</br>
+<% if @trip.places.first%>
+<div class="row">
+  <div class="container">
+    <fieldset class="col-md-7 pre-scrollable">
+      <legend> Itinerary </legend>
+      <table>
+      <% @trip.itinerary.itinerary_places.order(when: :asc ).each do |itinerary_place|%>
+        <tr>
+          <td>
+          <h4><a href="/places/<%=itinerary_place.place.id%>"><%=itinerary_place.place.name%></a></h4>
+          </td>
+          <td><%=itinerary_place.place.address%></td>
+          <td><% if itinerary_place.when%>
+          <%=itinerary_place.when.strftime("%B %d,%Y - %l:%M%P")%>
+          <%else%>
+          <% end -%>
+          </td> 
+        </tr>
+      <%end%>
+      </table>
+    </fieldset>
+    <fieldset class="col-md-4 pre-scrollable">
+      <legend> Expenses </legend>
+        <% @trip.itinerary.itinerary_places.each do |itinerary_place|%>
+          <% if !itinerary_place.place.expenses.empty? %>
+            <% if itinerary_place.place.expenses %>
+              <h4><%=itinerary_place.place.name%></h4>
+              <% itinerary_place.place.expenses.each do |expense|%>
+                  <%= expense.amount%>
+                - <%= expense.user.name%>
+                </br>
+              <%end%>
+            <%end%>
+      <%end%>
+      <%end%>
+    </fieldset>
+  </div>
+</div>
+<% end -%>
 
-
-
+<footer>
+  <div class="container">
+    <center>
+      Contact Us Gravel©
+    </center>
+  </div>
+</footer>

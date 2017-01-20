@@ -32,6 +32,9 @@ before_action :authenticate_user!, except: [:home]
       @trip.save
       @new = UserTrip.new(user_id: current_user.id, trip_id: @trip.id, admin: true)
       @new.save
+      itinerary = Itinerary.new(trip_id: @trip.id, public: false)
+      itinerary.save
+
       redirect_to "/trips/#{@trip.id}"
       # redirect_to "/trips/#{@trip.id}"
   end
@@ -65,7 +68,9 @@ before_action :authenticate_user!, except: [:home]
   # flash[:notice] = "Invite has been sent."
   # redirect_to "/trips/#{@trip.id}"
   # end
-
+  def first_name(full_name)
+    full_name.split(" ")[0]
+  end
 
   
 end

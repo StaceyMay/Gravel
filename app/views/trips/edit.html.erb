@@ -1,3 +1,8 @@
+
+<div class="container">
+  <fieldset>
+    <legend>Edit Trip Information:</legend>
+
 <%= form_tag "/trips/#{@trip.id}", method: :patch do %>
     <div>
     <%= label_tag :name, "Name:" %>
@@ -12,3 +17,5 @@
   </div>
 
   <%end%>
+  </fieldset>
+</div>

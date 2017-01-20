@@ -1,0 +1,45 @@
+<div class="container">
+<fieldset>
+<legend>
+  <span> 
+    Itinerary
+    <%if @itinerary.public%> 
+      (Public)
+    <% else%>
+      (Private)
+    <%end%>
+  </span>
+  <a class="pull-right" href="/itinerary/<%=@itinerary.id%>/edit">Edit</a>
+</legend>
+  <table>
+      <% @itinerary_places.order(when: :asc ).each do |itinerary_place|%>
+      <tr>
+        <td width="130">
+        <div>
+        <%=itinerary_place.place.name%>
+        </div>
+        </td>
+        <td width="550">
+        <div>
+        <%=itinerary_place.place.address%>
+        </div>
+        </td>
+        <td>
+        <div>
+        <% if itinerary_place.when%>
+        <%=itinerary_place.when.strftime("%B %d,%Y - %l:%M%P")%>
+        </div>
+        </td>
+        <%else%>
+        <%end%>
+        <% end -%>
+      </tr>
+  <table>
+   <div> 
+    <a class="pull-left" href="/itinerary/<%=params[:itinerary_id]%>/categories/new">Add Categories</a> 
+  </div>
+  <div> 
+    <a class="pull-right" href="/trips/<%=@itinerary.trip_id%>">Back to Trip</a> 
+  </div>
+</fieldset>
+</div>

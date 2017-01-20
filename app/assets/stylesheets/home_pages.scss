@@ -10,7 +10,7 @@
 #home-animation {
 
       background: white;
-      font: 14.5em/1 Open Sans, Impact;
+      font: 9em/1 Open Sans, Impact;
       text-transform: uppercase;
 
     .text--transparent {
@@ -24,28 +24,28 @@
       -webkit-transform: scale(0, 1) translate(0, 0);
       -ms-transform: scale(0, 1) translate(0, 0);
       transform: scale(0, 1) translate(0, 0);
-      -webkit-animation: moving-panel 3s infinite alternate;
-      animation: moving-panel 3s infinite alternate;
+      -webkit-animation: moving-panel 5s infinite forwards;
+      animation: moving-panel 5s forwards;
     }
 
     .colortext .anim-shape:nth-child(1) {
-      fill: #a3c1ad;
+      fill: #011f4b;
     }
 
     .colortext .anim-shape:nth-child(2) {
-      fill: #a0d6b4;
+      fill: #03396c;
     }
 
     .colortext .anim-shape:nth-child(3) {
-      fill: #5f9ea0;
+      fill: #005b96;
     }
 
     .colortext .anim-shape:nth-child(4) {
-      fill: #317873;
+      fill: #666688;
     }
 
     .colortext .anim-shape:nth-child(5) {
-      fill: #49796b;
+      fill: #336688;
     }
 
     .shadow {

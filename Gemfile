@@ -29,7 +29,6 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'faker', '~> 1.6', '>= 1.6.6'
 
-gem 'better_errors'
 gem 'awesome_print'
 gem 'simple_form'
 gem 'bootstrap-sass', '~> 3.3.6'
@@ -54,6 +53,7 @@ group :development, :test do
   gem 'annotate'
   gem 'dotenv-rails'
   gem 'rspec-rails', '~> 3.5'
+  gem 'binding_of_caller'
 end
 
 group :development do
@@ -63,6 +63,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'better_errors'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

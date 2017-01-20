@@ -6,11 +6,16 @@ Rails.application.routes.draw do
 
   # get "/jquery.geocomplete.js"
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
+
    get "/", to: "home_pages#home"
 
   get "/places", to: "places#index"
   get "/places/new", to: "places#new"
   post "/places", to: "places#create"
+  get "/places/:id/edit", to: "places#edit"
+  patch "/places/:id", to: "places#update"
   get "/places/:id", to: "places#show"
   delete "/places/:id", to: "places#destroy"
 
@@ -33,12 +38,21 @@ Rails.application.routes.draw do
   get "/places/:id/comments/new", to: "place_comments#new"
   post "/places/:id/comments", to: "place_comments#create"
 
-  get "/trips/:id/itinerary/new", to: "itinerary_places#new"
-  post "/trips/:id/itinerary", to: "itinerary_places#create"
+  get "/itinerary/new", to: "itinerary_places#new"
+  post "/itinerary/:itinerary_id", to: "itinerary_places#create"
+
+  get "/itinerary/:itinerary_id", to: "itineraries#show"
+  get "/itinerary/:itinerary_id/edit", to: "itineraries#edit"
+  patch "/itinerary/:itinerary_id", to: "itineraries#update"
+
+  get "/itinerary/:itinerary_id/categories/new", to: "categories#new"
+  get "/itinerary/:itinerary_id/categories/", to: "categories#create"
+
 
   get "/places/:id/expenses/new", to: "expenses#new"
   post "/places/:id/expenses", to: "expenses#create"
+  get "places/:id/expenses/:expense_id", to: "expenses#show"
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  post "/votes", to: "votes#create"
 
 end
