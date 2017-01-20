@@ -9,6 +9,17 @@ class ItinerariesController < ApplicationController
   def show
     @itinerary = Itinerary.find_by(id: params[:itinerary_id])
     @itinerary_places = @itinerary.itinerary_places
+
+    @locs = []
+    count = 0
+    @location = @itinerary_places.each do |place|
+            loc = []
+            count += 1
+            loc << place.place.latitude
+            loc << place.place.longitude
+            @locs << loc
+            end
+
   end
 
   def edit 

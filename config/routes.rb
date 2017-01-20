@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   patch "/itinerary/:itinerary_id", to: "itineraries#update"
 
   get "/itinerary/:itinerary_id/categories/new", to: "categories#new"
-  get "/itinerary/:itinerary_id/categories/", to: "categories#create"
+  post "/itinerary/:itinerary_id/categories/", to: "categories#create"
 
 
   get "/places/:id/expenses/new", to: "expenses#new"

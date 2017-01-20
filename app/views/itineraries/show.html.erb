@@ -1,3 +1,4 @@
+<div class="row">
 <div class="container">
 <fieldset>
 <legend>
@@ -14,12 +15,12 @@
   <table>
       <% @itinerary_places.order(when: :asc ).each do |itinerary_place|%>
       <tr>
-        <td width="130">
+        <td width="200">
         <div>
-        <%=itinerary_place.place.name%>
+        <h4><%=itinerary_place.place.name%></h4>
         </div>
         </td>
-        <td width="550">
+        <td width="600">
         <div>
         <%=itinerary_place.place.address%>
         </div>
@@ -34,12 +35,101 @@
         <%end%>
         <% end -%>
       </tr>
-  <table>
-   <div> 
-    <a class="pull-left" href="/itinerary/<%=params[:itinerary_id]%>/categories/new">Add Categories</a> 
-  </div>
+  </table>
   <div> 
     <a class="pull-right" href="/trips/<%=@itinerary.trip_id%>">Back to Trip</a> 
   </div>
 </fieldset>
+</div>
+</div>
+
+
+<div class="container" style="padding-top: 30px;">
+  <div class="row">
+    <head>
+    <meta charset="utf-8">
+    <title>Marker animations with <code>setTimeout()</code></title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="col-md-8" id="map" style="height: 345px; width: 825px; margin-left: 20px;"></div>
+    <script>
+
+      // If you're adding a number of markers, you may want to drop them on the map
+      // consecutively rather than all at once. This example shows how to use
+      // window.setTimeout() to space your markers' animation.
+
+      var locations = [<% @locs.each do |loc|%>
+        {
+          lat: <%=loc[0].to_json.html_safe%>,
+          lng: <%=loc[1].to_json.html_safe%>
+        },
+        <%end%>
+      ]
+
+
+
+      var markers = [];
+
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 9,
+          center: {lat: <%=@locs.first[0].to_json.html_safe%>, lng: <%=@locs.first[1].to_json.html_safe%>}
+        });
+
+      var bounds = new google.maps.LatLngBounds();
+        for (var i = 0; i < markers.length; i++) {
+          bounds.extend(markers[i].getPosition());
+        }
+      }
+      map.fitBounds(bounds);
+
+      function drop() {
+        clearMarkers();
+        for (var i = 0; i < locations.length; i++) {
+          addMarkerWithTimeout(locations[i], i * 200);
+        }
+      }
+
+      function addMarkerWithTimeout(position, timeout) {
+        window.setTimeout(function() {
+          markers.push(new google.maps.Marker({
+            position: position,
+            map: map,
+            animation: google.maps.Animation.DROP
+          }));
+        }, timeout);
+      }
+
+      function clearMarkers() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+        markers = [];
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBphYEHxnocJdbTswQnh8YEAAz1jfPOmo0&callback=initMap">
+    </script>
+  </body>
+
+  </br>
+<fieldset class="col-md-3">
+<legend>Categories:</legend>
+  <% @itinerary.categories.each do |category|%>
+  #<%= category.category%>
+  <%end%>
+  <div> 
+    <a class="pull-left" href="/itinerary/<%=params[:itinerary_id]%>/categories/new">Add Categories</a> 
+  </div>
+</fieldset>
+
+      <button class="btn btn-default btn-md" id="drop" onclick="drop()">Drop Markers</button>
+</div>
 </div>
