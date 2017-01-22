@@ -57,13 +57,9 @@
       }
     </style>
   </head>
-  <body>
+  <body onload="drop()">
     <div class="col-md-8" id="map" style="height: 345px; width: 825px; margin-left: 20px;"></div>
     <script>
-
-      // If you're adding a number of markers, you may want to drop them on the map
-      // consecutively rather than all at once. This example shows how to use
-      // window.setTimeout() to space your markers' animation.
 
       var locations = [<% @locs.each do |loc|%>
         {
@@ -73,14 +69,15 @@
         <%end%>
       ]
 
-
-
       var markers = [];
 
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 9,
           center: {lat: <%=@locs.first[0].to_json.html_safe%>, lng: <%=@locs.first[1].to_json.html_safe%>}
+        });
+      map.addListener('click', function(event) {
+          addMarker(event.latLng);
         });
 
       var bounds = new google.maps.LatLngBounds();
@@ -103,6 +100,7 @@
             position: position,
             map: map,
             animation: google.maps.Animation.DROP
+
           }));
         }, timeout);
       }
@@ -129,7 +127,5 @@
     <a class="pull-left" href="/itinerary/<%=params[:itinerary_id]%>/categories/new">Add Categories</a> 
   </div>
 </fieldset>
-
-      <button class="btn btn-default btn-md" id="drop" onclick="drop()">Drop Markers</button>
 </div>
 </div>
