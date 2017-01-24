@@ -49,7 +49,7 @@
     <div class="form-horizontal col-md-3 pre-scrollable">
     <fieldset>
     <legend> Places:</legend>
-      <p style="font-size: 12px"><i> *Click (+) to vote for place. </i></p>
+      <p style="font-size: 12px"><i> *Click <img class="thumb" src="http://image.flaticon.com/icons/svg/48/48001.svg"> to vote for place. </i></p>
     <%= form_tag "/itinerary/#{@trip.itinerary.id}", method: :post do %>
        <% @trip.places.all.each do |place|%>
       <div>
@@ -57,10 +57,10 @@
         <%= check_box_tag "itinerary_places[]", place.id %>
         <%end%>
       <% hidden_field_tag :itinerary_id, @trip.itinerary.id %>
-      <a href="/places/<%=place.id%>"><%= label_tag(place, place.name)%></a> <span id="place-<%=place.id%>"><%=place.votes.count%></span> votes.
+      <a href="/places/<%=place.id%>"><%= label_tag(place, place.name)%></a> <span id="place-<%=place.id%>"><%=place.votes.count%></span>
 
         <% if !Vote.find_by(user_id: current_user.id, place_id: place.id) %>
-          <a id="vote-<%=place.id%>" ng-click="addVote(<%= place.id %>, <%= current_user.id %>)">(+)</a>
+          <a id="vote-<%=place.id%>" ng-click="addVote(<%= place.id %>, <%= current_user.id %>)"><img class="thumb" src="http://image.flaticon.com/icons/svg/48/48001.svg"></a>
         <% end %>
       <% end -%>
     </div>
@@ -79,7 +79,7 @@
   <% if @locs.first%>
   <head>
   <title>Trip with Markers</title>
-  <script src="http://maps.google.com/maps/api/js?keyAIzaSyBphYEHxnocJdbTswQnh8YEAAz1jfPOmo0s" type="text/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBphYEHxnocJdbTswQnh8YEAAz1jfPOmo0" type="text/javascript"></script>
   </head>
   <body>
  
@@ -90,7 +90,7 @@
     var locations = <%=@locs.to_json.html_safe%>;
 
     var map = new google.maps.Map(document.getElementById('map'), {
-      zoom: 10,
+      zoom: 12,
       center: new google.maps.LatLng(<%=@locs.first[1].to_json.html_safe%>, <%=@locs.first[2].to_json.html_safe%>),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
@@ -98,12 +98,15 @@
     var infowindow = new google.maps.InfoWindow();
 
     var marker, i;
+    var markers = new Array();
 
     for (i = 0; i < locations.length; i++) { 
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
         map: map
       });
+
+      markers.push(marker);
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
@@ -112,6 +115,17 @@
         }
       })(marker, i));
     }
+    function AutoCenter() {
+      //  Create a new viewpoint bound
+      var bounds = new google.maps.LatLngBounds();
+      //  Go through each...
+      $.each(markers, function (index, marker) {
+      bounds.extend(marker.position);
+      });
+      //  Fit these bounds to the map
+      map.fitBounds(bounds);
+    }
+    AutoCenter(); 
   </script>
   </body>
   <%end%>
@@ -152,12 +166,12 @@
 <% if @trip.places.first%>
 <div class="row">
   <div class="container">
-    <fieldset class="col-md-7 pre-scrollable">
+    <fieldset class="col-md-7 pre-scrollable" style="margin-top: 20px; margin-left: 20px">
       <legend> Itinerary: <a class="pull-right" href="/itinerary/<%=@trip.itinerary.id%>">Show Itinerary</a> </legend>
       <table>
       <% @trip.itinerary.itinerary_places.order(when: :asc ).each do |itinerary_place|%>
         <tr>
-          <td>
+          <td style="width: 150px">
           <h4><a href="/places/<%=itinerary_place.place.id%>"><%=itinerary_place.place.name%></a></h4>
           </td>
           <td><%=itinerary_place.place.address%></td>
@@ -170,14 +184,14 @@
       <%end%>
       </table>
     </fieldset>
-    <fieldset class="col-md-4 pre-scrollable">
+    <fieldset class="col-md-4 pre-scrollable" style="margin-top: 20px">
       <legend> Expenses </legend>
         <% @trip.itinerary.itinerary_places.each do |itinerary_place|%>
           <% if !itinerary_place.place.expenses.empty? %>
             <% if itinerary_place.place.expenses %>
-              <h4><%=itinerary_place.place.name%></h4>
+              <h4><a href="/places/<%=itinerary_place.place.id%>"><%=itinerary_place.place.name%></a></h4>
               <% itinerary_place.place.expenses.each do |expense|%>
-                  <%= expense.amount%>
+                  $<%= expense.amount%>
                 - <%= expense.user.name%>
                 </br>
               <%end%>

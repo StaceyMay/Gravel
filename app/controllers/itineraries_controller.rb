@@ -12,23 +12,23 @@ class ItinerariesController < ApplicationController
 
     @locs = []
     count = 0
-    @location = @itinerary_places.each do |place|
-            loc = []
-            count += 1
-            loc << place.place.latitude
-            loc << place.place.longitude
-            @locs << loc
-            end
-
     # @location = @itinerary_places.each do |place|
-    #             loc = []
-    #             count += 1
-    #             loc << place.place.name
-    #             loc << place.place.latitude
-    #             loc << place.place.longitude
-    #             loc << count
-    #             @locs << loc
-    #   end
+    #         loc = []
+    #         count += 1
+    #         loc << place.place.latitude
+    #         loc << place.place.longitude
+    #         @locs << loc
+    #         end
+
+    @location = @itinerary_places.each do |place|
+                loc = []
+                count += 1
+                loc << place.place.name
+                loc << place.place.latitude
+                loc << place.place.longitude
+                loc << count
+                @locs << loc
+      end
 
   end
 
@@ -54,12 +54,18 @@ class ItinerariesController < ApplicationController
   end 
 
   def search
-      @categories = Category.where("category ILIKE ?", "%#{params[:search]}%").pluck(:id)
-      itinerary_ids = []
-      itinerary_ids = itinerary_ids + TripCategories.where(category_id: @categories).pluck(:id)
-      itinerary_ids = itinerary_ids + Itinerary.joins(ingredients: :food).where("foods.name ILIKE (?)", "%#{params[:search]}%").pluck(:Itinerary_id)
-      itinerary_ids = itinerary_ids + Itinerary.where("name ILIKE ?", "%#{params[:search]}%").pluck(:id)
-      @itineraries = Itinerary.where(id: itinerary_ids.uniq)
+    @itns = Itinerary.joins(:categories).where(categories: {category: params[:search].downcase})
+    @search_results = @itns.where(itineraries: {public: true})
   end
+
+  def public
+
+    itinerary = Itinerary.find_by(id: params[:itinerary_id])
+    itinerary.assign_attributes(public: params[:public])
+    itinerary.save
+
+    redirect_to "/itinerary/#{params[:itinerary_id]}"
+  end
+
 
 end

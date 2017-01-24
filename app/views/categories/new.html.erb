@@ -7,12 +7,13 @@
 
           <div>
           <%= label_tag :Category%>
-          <%= text_field_tag :category,  nil, placeholder: "Category Here", class: 'input-field'%>
+          <%= text_field_tag :category,  nil, placeholder: "Category", required: true, class: 'input-field'%>
           </div>
           <br/>
           <div>
-          <%= submit_tag "Save Category", class: "btn btn-info btn-md"%>
+          <%= submit_tag "Save Category", class: "btn btn-default btn-md"%>
           </div>
         <% end -%>
     </fieldset>
   </div>
+

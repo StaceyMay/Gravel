@@ -8,7 +8,13 @@ class ItineraryPlacesController < ApplicationController
       @new_place.save
     end
 
-    redirect_to "/itinerary/#{@new_place.itinerary_id}"
+    redirect_to "/itinerary/#{@new_place.itinerary_id}/edit"
   end
 
+  def destroy
+    @itinerary_place = ItineraryPlace.find_by(id: params[:itinerary_place_id])
+    @itinerary_place.destroy
+
+    redirect_to "/itinerary/#{@itinerary_place.itinerary_id}"
+  end
 end

@@ -15,7 +15,7 @@ class User < ApplicationRecord
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.name = auth.info.name   # assuming the user model has a name
-      # user.image = auth.info.image # assuming the user model has an image
+      user.image = auth.info.image # assuming the user model has an image
       # If you are using confirmable and the provider(s) you use validate emails, 
       # uncomment the line below to skip the confirmation emails.
       # user.skip_confirmation!
@@ -54,6 +54,17 @@ class User < ApplicationRecord
     if name.split.count > 1
       name.split.last
     end
+  end
+
+ def group_member?(trip)
+  if trip
+      if UserTrip.find_by(user_id: self.id, trip_id: trip.id) != nil
+        return true
+      else
+        return false
+      end
+    end
+    return false
   end
 
 end

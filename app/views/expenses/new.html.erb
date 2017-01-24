@@ -4,16 +4,16 @@
 
 <%= form_tag "/places/#{params[:id]}/expenses", method: :post do %>
   <div>
-  <%= label_tag :amount %>
-  <%= text_field_tag :amount %>
+  <%= label_tag :amount, "Amount: $" %>
+  <%= text_field_tag :amount, nil, placeholder: "100", required: true %>
   </div>
   <div>
   <%= label_tag :description %>
-  <%= text_area_tag :description %>
+  <%= text_field_tag :description, nil, placeholder: "i.e. Dinner", required: true %>
   </div>
   <%=hidden_field_tag :place_id, params[:id]  %>
   <div>
-  <%= submit_tag "Add Expense" %>
+  <%= submit_tag "Add Expense", class: "btn btn-default btn-md"%>
   </div>
 <%end%>
   </fieldset>

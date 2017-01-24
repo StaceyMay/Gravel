@@ -42,17 +42,12 @@
           </ul>
         </li>
       </ul>
-
-    <%= form_tag "/search", :method => "get", id: "search-form", class: "navbar-form navbar-left" do %>
-        <div class="form-group" id="my-search">
-        <%= text_field_tag :search, params[:search], placeholder: "Search Itineraries" %>
-       <%= button_tag(type: "submit", class: "btn btn-info btn-md") do %>
-       <i class="material-icons">search</i>
-      <% end %>
+      <div>
+      <%= form_tag "/search?=#{params[:search]}", method: :post, class: "navbar-form navbar-left" do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search Categories" %>
+      <%= submit_tag "Search", class: "btn btn-default" %>
       </div>
-    <% end %>
-
-
+    <%end%>
 
 
 

@@ -7,7 +7,7 @@
     <%= form_tag "/trips", method: :post do %>
   
   <%= label_tag :name, "Trip name:" %>
-  <%= text_field_tag :name %>
+  <%= text_field_tag :name, nil, placeholder: "i.e. Janice's Birthday Trip!", required: true, class: 'input-field' %>
 
   <%= submit_tag "Start Trip!", class: "btn btn-info btn-md" %>
 

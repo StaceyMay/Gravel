@@ -41,7 +41,7 @@
       <div class="container">
       <h1> Welcome back, <%=current_user.first_name%>.</h1>
       <p> You are currently part of <%=current_user.trips.length%>  trips </p>
-      <p> You have ____ itinerary coming up in the next 30 days</p>
+      <p> Create a new trip <a href="/trips/new"> here </a>
       <section class="content flexy flexy--center">
         <p class="content__heading content__heading--center"><strong>Click the menu icon &#8599;</strong></p>
        </section>
@@ -70,7 +70,7 @@
 
       document.querySelector('.btn--menu').addEventListener('click', function() {
         revealer.reveal({
-          bgcolor: '#336688',
+          bgcolor: '#e8702a',
           duration: 400, 
           easing: 'easeInOutCubic',
           onCover: function(contentEl, revealerEl) {
@@ -87,7 +87,7 @@
         closeCtrl.removeEventListener('click', closeMenu);
         navEl.classList.remove('menu--open');
         revealer.reveal({
-          bgcolor: '#336688',
+          bgcolor: '#e8702a',
           duration: 400, 
           easing: 'easeInOutCubic',
           onCover: function(contentEl, revealerEl) {

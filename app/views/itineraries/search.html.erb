@@ -1,0 +1,33 @@
+<div class="container">
+<fieldset>
+<legend>Search Results:</legend>
+  <% if @itns.first %>
+  <table>
+      <% @search_results.each do |itinerary| %>
+      <tr>
+        <td width="300">
+        <div>
+        <h3 style="margin-left: 30px;"><%= itinerary.trip.name%> </h3>
+        </div>
+        </td>
+        <td  width="200">
+        <h5>(<%= itinerary.itinerary_places.count%>) Places</h5>
+        </td>
+        <td width="200">
+        <div>
+        <h5 style="margin-top: 20px; font-family: 'Inconsolata', monospace; color: grey;"><a href="/itinerary/<%=itinerary.id%>">View Itinerary</h5> 
+        </td>
+        <td>
+          Other categories:<% itinerary.categories.each do |catgory|%>
+          #<%= catgory.category%>  
+          <%end%>
+        </td>
+      <% end -%>
+      </tr>
+  </table>
+  <span class="pull-right" style="font-style: italic;"> <%= @search_results.count%> Results</span>
+  <%else%>
+  <center><h4 style="font-style: italic; color: grey; font-family: 'Inconsolata', monospace;"> No Search Results, try searching for something else. </h4></center>
+  <%end%>
+</fieldset>
+</div>

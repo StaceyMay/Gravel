@@ -4,8 +4,8 @@ before_action :authenticate_user!, except: [:home]
 
   def index
     # @trips = Trip.all
-
     @trips = current_user.trips.all
+
   end
 
   def show

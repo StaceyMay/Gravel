@@ -1,3 +1,5 @@
+<% if current_user.group_member?(@itinerary.trip) || @itinerary.public%>
+
 <div class="row">
 <div class="container">
 <fieldset>
@@ -9,8 +11,22 @@
     <% else%>
       (Private)
     <%end%>
+      <div class="btn-group" style="padding-top: 25px">  
+  <%= mail_to " ", "Share Itinerary", subject: "#{@itinerary.trip.name} Itinerary", body: "Come view my itinerary! http://localhost:3000/itinerary/#{@itinerary.id}", class: 'btn btn-default btn-md' %>
+  </div>
   </span>
-  <a class="pull-right" href="/itinerary/<%=@itinerary.id%>/edit">Edit</a>
+
+  <%if current_user.currently_admin?(@itinerary.trip)%>
+  <a class="pull-right" href="/itinerary/<%=@itinerary.id%>/edit" style="margin-top: 15px;">Edit</a>
+  <span style="font-size: 12px;">
+    <%= form_tag "/public", method: :patch do %>
+    <%= label_tag :public, "Make Itinerary:"%>
+    <%= select_tag :public, options_for_select([['Public', true], ['Private', false]]) %>
+    <%= hidden_field_tag :itinerary_id, params[:itinerary_id]%>
+    <%= submit_tag "Save" %>
+  <% end %>
+  </span>
+  <%end%>
 </legend>
   <table>
       <% @itinerary_places.order(when: :asc ).each do |itinerary_place|%>
@@ -20,12 +36,12 @@
         <h4><%=itinerary_place.place.name%></h4>
         </div>
         </td>
-        <td width="600">
+        <td width="550">
         <div>
         <%=itinerary_place.place.address%>
         </div>
         </td>
-        <td>
+        <td width="275">
         <div>
         <% if itinerary_place.when%>
         <%=itinerary_place.when.strftime("%B %d,%Y - %l:%M%P")%>
@@ -33,10 +49,16 @@
         </td>
         <%else%>
         <%end%>
+        <td>
+        <%if current_user.currently_admin?(@itinerary.trip)%>
+          <%= link_to "Delete", "/itinerary/#{itinerary_place.id}", method: :delete , class: "btn btn-danger"%>
+        <%end%>
+        </td>
         <% end -%>
       </tr>
   </table>
   <div> 
+    <span class="pull-left" style="font-size: 12px"> *Private itineraries are not viewable by non-group members.</span>
     <a class="pull-right" href="/trips/<%=@itinerary.trip_id%>">Back to Trip</a> 
   </div>
 </fieldset>
@@ -46,86 +68,75 @@
 
 <div class="container" style="padding-top: 30px;">
   <div class="row">
-    <head>
-    <meta charset="utf-8">
-    <title>Marker animations with <code>setTimeout()</code></title>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-    </style>
+  <% if @locs.first%>
+  <head>
+  <title>Trip with Markers</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBphYEHxnocJdbTswQnh8YEAAz1jfPOmo0" type="text/javascript"></script>
   </head>
-  <body onload="drop()">
-    <div class="col-md-8" id="map" style="height: 345px; width: 825px; margin-left: 20px;"></div>
-    <script>
+  <body>
+ 
+  <div class="col-md-6" id="map" style="height: 345px; width: 825px; margin-left: 20px;">
+  </div>
 
-      var locations = [<% @locs.each do |loc|%>
-        {
-          lat: <%=loc[0].to_json.html_safe%>,
-          lng: <%=loc[1].to_json.html_safe%>
-        },
-        <%end%>
-      ]
+  <script type="text/javascript">
+    var locations = <%=@locs.to_json.html_safe%>;
 
-      var markers = [];
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 12,
+      center: new google.maps.LatLng(<%=@locs.first[1].to_json.html_safe%>, <%=@locs.first[2].to_json.html_safe%>),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
 
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 9,
-          center: {lat: <%=@locs.first[0].to_json.html_safe%>, lng: <%=@locs.first[1].to_json.html_safe%>}
-        });
-      map.addListener('click', function(event) {
-          addMarker(event.latLng);
-        });
+    var infowindow = new google.maps.InfoWindow();
 
+    var marker, i;
+    var markers = new Array();
+
+    for (i = 0; i < locations.length; i++) { 
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      markers.push(marker);
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+    function AutoCenter() {
+      //  Create a new viewpoint bound
       var bounds = new google.maps.LatLngBounds();
-        for (var i = 0; i < markers.length; i++) {
-          bounds.extend(markers[i].getPosition());
-        }
-      }
+      //  Go through each...
+      $.each(markers, function (index, marker) {
+      bounds.extend(marker.position);
+      });
+      //  Fit these bounds to the map
       map.fitBounds(bounds);
-
-      function drop() {
-        clearMarkers();
-        for (var i = 0; i < locations.length; i++) {
-          addMarkerWithTimeout(locations[i], i * 200);
-        }
-      }
-
-      function addMarkerWithTimeout(position, timeout) {
-        window.setTimeout(function() {
-          markers.push(new google.maps.Marker({
-            position: position,
-            map: map,
-            animation: google.maps.Animation.DROP
-
-          }));
-        }, timeout);
-      }
-
-      function clearMarkers() {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
-        }
-        markers = [];
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBphYEHxnocJdbTswQnh8YEAAz1jfPOmo0&callback=initMap">
-    </script>
+    }
+    AutoCenter(); 
+  
+  </script>
   </body>
+  <%end%>
 
   </br>
-<fieldset class="col-md-3">
+<fieldset class="col-md-3" style="margin-left: 15px;">
 <legend>Categories:</legend>
-  <% @itinerary.categories.each do |category|%>
+  <% @itinerary.categories.uniq.each do |category|%>
   #<%= category.category%>
   <%end%>
-  <div> 
+  <div style="margin-top: 10px; margin-left: 5px;"> 
     <a class="pull-left" href="/itinerary/<%=params[:itinerary_id]%>/categories/new">Add Categories</a> 
   </div>
 </fieldset>
 </div>
 </div>
+<%else%>
+<div class="container"> 
+<h1 style="font-style: italic; color: grey; font-family: 'Inconsolata', monospace;"><center> Oops! This itinerary is private, please contact group member for an invite. </center></h1>
+</div>
+<%end%>

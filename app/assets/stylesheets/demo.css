@@ -426,7 +426,7 @@ a:focus {
 	list-style-type: none;
 	padding: 20vh 3em;
 	margin-top: 50px;
-	background: #89c4f4;
+	background: #6497b1;
 	overflow: hidden;
 	overflow-y: scroll;
 }
@@ -750,8 +750,8 @@ a:focus {
 /* Demo themes */
 
 .demo-menu { background: white; color: #828282; }
-.demo-menu a { color: #c5c149; }
-.demo-menu a:hover, .demo-menu a:focus { color: #fcf652; }
+.demo-menu a { color: #03396c; }
+.demo-menu a:hover, .demo-menu a:focus { color: #e8702a; }
 
 .demo-split { background: white; color: black; }
 .js .demo-split.loading::before { background: #EB6864; }

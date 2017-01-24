@@ -38,13 +38,19 @@ Rails.application.routes.draw do
   get "/places/:id/comments/new", to: "place_comments#new"
   post "/places/:id/comments", to: "place_comments#create"
 
+
   get "/itinerary/new", to: "itinerary_places#new"
   post "/itinerary/:itinerary_id", to: "itinerary_places#create"
+  delete "/itinerary/:itinerary_place_id", to: "itinerary_places#destroy"
 
-  get "/itinerary/:itinerary_id", to: "itineraries#show"
+  get "/itineraries", to: "itineraries#index"
   get "/itinerary/:itinerary_id/edit", to: "itineraries#edit"
   patch "/itinerary/:itinerary_id", to: "itineraries#update"
   post "/search", to: "itineraries#search"
+  patch "/public", to: "itineraries#public"
+ 
+
+  get "/itinerary/:itinerary_id", to: "itineraries#show"
 
   get "/itinerary/:itinerary_id/categories/new", to: "categories#new"
   post "/itinerary/:itinerary_id/categories/", to: "categories#create"

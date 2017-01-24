@@ -6,14 +6,14 @@
     <%= form_tag "/invited", method: :post do %>
       <label for="inputEmail" class="col-lg-2 control-label">Trip ID:</label>
       <div class="col-lg-10">
-        <%= text_field_tag :slug %>
+        <%= text_field_tag :slug, nil, placeholder: "ie. family-euro-trip", required: true  %>
       </div>
       </br>
     </div>
     <div class="form-group">
       <label for="inputPassword" class="col-lg-2 control-label">Password</label>
       <div class="col-lg-10">
-        <%= text_field_tag :password %>
+        <%= text_field_tag :password, nil, placeholder: "********", required: true  %>
       </div>
     </div>
     </br>
