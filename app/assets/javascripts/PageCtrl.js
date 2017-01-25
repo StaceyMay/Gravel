@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  angular.module("app").controller("pageCtrl", function($scope, $http) {
+  angular.module("app").controller("pageCtrl",['$scope', '$http', function($scope, $http) {
 
     // $scope.onLoad() = function(){
 
@@ -57,5 +57,5 @@
       });
     }
 
-      });
+      }]);
 }) ();
