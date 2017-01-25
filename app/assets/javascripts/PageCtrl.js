@@ -10,7 +10,7 @@
     $scope.initialize = function() {
       $http({
         method: "GET",
-        url: 'http://localhost:3000/'
+        url: 'http://desolate-beyond-64352.herokuapp.com/'
       })
     }
     // $scope.saveVotes = function(id){
@@ -35,7 +35,7 @@
       // $scope.places = vote + 1;
       $http({
         method: 'POST',
-        url: 'http://localhost:3000/votes.json',
+        url: 'http://desolate-beyond-64352.herokuapp.com/votes.json',
         data: {
           user_id: newUser,
           place_id: newPlace
