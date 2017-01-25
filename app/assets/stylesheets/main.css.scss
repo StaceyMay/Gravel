@@ -69,11 +69,13 @@ footer {
 }
 
 .button_with_facebook {
-    background-image: url(https://mybreaktrip.co.uk/media/storage/editor/images/small-FB-login.png);
+    background-image: url('https://mybreaktrip.co.uk/media/storage/editor/images/small-FB-login.png');
     display:block;
     cursor: pointer;
-    height: 46px;
-    width: 202px;
+    height: auto;
+    width: auto;
+    max-height: 46px;
+    max-width: 202px;
     border-radius: 10px;
     box-shadow: none;
     background-color: white;
