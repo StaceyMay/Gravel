@@ -69,12 +69,11 @@ footer {
 }
 
 .button_with_facebook {
-    background-image: url(http://d3hybqgkpm9rov.cloudfront.net/wp-content/themes/rockville2/images/fb-login-btn.png);
+    background-image: url("../images/facebook_login.png");
     display:block;
     cursor: pointer;
-    height: auto;
-    width: auto;
-    max-height: 50px;
+    height: 46px;
+    width: 202px;
     border-radius: 10px;
     box-shadow: none;
     background-color: white;
