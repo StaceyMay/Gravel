@@ -6,9 +6,6 @@
       <p>Phone: <%= @place.phone %></p>
       <p>Coordinates: <%= @place.latitude %> <%= @place.longitude %></p>
 
-      <%= link_to "Add Comment", "/places/#{@place.id}/comments/new", class: 'btn btn-default btn-md'  %>
-      <%= link_to "Add Expense", "/places/#{@place.id}/expenses/new", class: 'btn btn-default btn-md'  %>
-
       <%= link_to "Delete Place", "/places/#{@place.id}", class: 'btn btn-default btn-md',  method: :delete %>
     <div> 
     <a class="pull-right" href="/trips/<%=@place.trip_id%>">Back to Trip</a> 
@@ -91,6 +88,7 @@
           <%end%>
         </tr>
       </table>
+      <%= link_to "Add Expense", "/places/#{@place.id}/expenses/new", class: 'btn btn-default btn-md'  %>
     </fieldset>
     <fieldset class="col-md-7 pre-scrollable">
       <legend> Comments</legend>
@@ -103,7 +101,7 @@
           </div>
       <%end%>
       <% end -%>
-
+     <%= link_to "Add Comment", "/places/#{@place.id}/comments/new", class: 'btn btn-default btn-md'  %>
     </fieldset>
   </div>
 </div>
