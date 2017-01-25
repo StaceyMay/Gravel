@@ -1,3 +1,4 @@
+<% if current_user.group_member?(@itinerary.trip)%>
 <div class="row">
 <div class="container">
   <h1 class="pull-left col-lg-2"><%= @trip.name %></h1>   
@@ -7,7 +8,7 @@
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu">
-          <li><%= mail_to " ", "Invite Friends to Trip", subject: "Come Join My #{@trip.name} Trip", body: "Trip ID: #{@trip.slug} Trip Password: #{@trip.password} Go to http://localhost:3000/invite to join"%></li>
+          <li><%= mail_to " ", "Invite Friends to Trip", subject: "Come Join My #{@trip.name} Trip", body: "Trip ID: #{@trip.slug} Trip Password: #{@trip.password} Go to http://www.gravel.world/invite to join"%></li>
           <li><%= link_to "Go Back to All Trips" ,"/trips"%></li>
           <li><%= link_to "Add Place" ,"/places/new?trip_id=#{@trip.id}"%></li>
           <li> <%= link_to "Add Comment", "/trips/#{@trip.id}/comments/new"%></li>
@@ -202,11 +203,8 @@
   </div>
 </div>
 <% end -%>
+<div class="container"> 
+<h1 style="font-style: italic; color: grey; font-family: 'Inconsolata', monospace;"><center> Oops! This trip is private, please contact group member for an invite. </center></h1>
+</div>
+<%end%>
 
-<footer>
-  <div class="container">
-    <center>
-      Contact Us Gravel©
-    </center>
-  </div>
-</footer>
