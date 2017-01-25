@@ -46,7 +46,8 @@
         <p class="content__heading content__heading--center"><strong>Click the menu icon &#8599;</strong></p>
        </section>
       </div>
-      <nav class="menu">
+      <nav class="menu block-revealer">
+        <div class="block-revealer__content">
         <button class="btn btn--close"><svg class="icon icon--cross"><use xlink:href="#icon-cross"></use></svg></button>
         <ul class="menu__inner">
         <% if @trips.first %>
@@ -58,6 +59,8 @@
           <a class="menu__link" href="/trips/new"> Start Trip</a></li>
         <%end%>
         </ul>
+        </div>
+        <div class="block-revealer__element" style="transform: scaleX(0); transform-origin: 100% 50% 0px; background-color: rgb(127, 64, 241); opacity: 1;"></div>
       </nav>
     </main>
     <script src="js/anime.min.js"></script>
