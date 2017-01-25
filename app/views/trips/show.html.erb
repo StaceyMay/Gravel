@@ -15,7 +15,7 @@
          </ul>
       </div>
   <div class="btn-group col-lg-2" style="padding-top: 25px">  
-  <%= mail_to " ", "Invite Friends to Trip", subject: "Come Join My #{@trip.name} Trip", body: "Trip ID: #{@trip.slug} Trip Password: #{@trip.password} Go to http://localhost:3000/invite to join", class: 'btn btn-default btn-md' %>
+  <%= mail_to " ", "Invite Friends to Trip", subject: "Come Join My #{@trip.name} Trip", body: "Trip ID: #{@trip.slug} Trip Password: #{@trip.password} Go to http://www.gravel.world/invite to join", class: 'btn btn-default btn-md' %>
   </div>
   <% if current_user.currently_admin?(@trip)%>
   <div class="btn-group col-lg-2 pull-right" style="padding-top: 25px">
