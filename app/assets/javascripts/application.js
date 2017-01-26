@@ -14,10 +14,11 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require angular
-//=require app
-//= require_tree .
+//= require app
 //= require jquery.geocomplete
-$(function() {
-$("#geo-input").geocomplete();
-});  
+//= require_tree .
 //= require geocomplete
+
+$(function() {
+  $("#geo-input").geocomplete();
+});  
