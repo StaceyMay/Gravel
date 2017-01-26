@@ -153,9 +153,9 @@
     <% if @trip.trip_comments.first %>
     <p><% @trip.trip_comments.order(created_at: :desc ).each do |comment|%></p>
     <div id="comment">
-    <%= comment.comment%> </br>
-    - <%= comment.user.name%>
-    at: <%= comment.created_at.strftime("%D - %r")%>
+    <img style="border-radius: 50px;"src="<%= comment.user.image%>"> 
+    <%= comment.comment%></br>
+    <span style="font-size: 10px"> at: <%= comment.created_at.strftime("%D - %r")%></span>
     </div>
     <%end%>
     <% end -%>
