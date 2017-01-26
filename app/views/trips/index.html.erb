@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Block Reveal Effects | Menu | Codrops</title>
     <meta name="description" content="Ideas for revealing content in a schematic box look." />
     <meta name="keywords" content="javascript, plugin, reveal, effect, demo, web development, web design, template" />
     <meta name="author" content="Codrops" />
@@ -48,7 +47,7 @@
       </div>
       <nav class="menu block-revealer">
         <div class="block-revealer__content">
-        <button class="btn btn--close"><svg class="icon icon--cross"><use xlink:href="#icon-cross"></use></svg></button>
+        <button class="btn btn--close"><svg class="icon icon--cross" id="close-menu" style="margin: 50px auto"><use xlink:href="#icon-cross"></use></svg></button>
         <ul class="menu__inner">
         <% if @trips.first %>
           <% @trips.each do |trip|%>
