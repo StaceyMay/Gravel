@@ -7,12 +7,12 @@
 
 
     // }
-    $scope.initialize = function() {
-      $http({
-        method: "GET",
-        url: '/.json'
-      })
-    }
+    // $scope.initialize = function() {
+    //   $http({
+    //     method: "GET",
+    //     url: '/.json'
+    //   })
+    // }
     // $scope.saveVotes = function(id){
     //   console.log(current_task.id)
     //   $http({
