@@ -51,7 +51,7 @@
         <ul class="menu__inner">
         <% if @trips.first %>
           <% @trips.each do |trip|%>
-            <li class="menu__item"> - <%= link_to trip.name,  "/trips/#{trip.id}", class: 'menu__link'%></li>
+            <li class="menu__item"> <%= link_to trip.name,  "/trips/#{trip.id}", class: 'menu__link'%></li>
           <%end%>
         <%else%>
           <li class="menu__item"> You have no trips planned!
