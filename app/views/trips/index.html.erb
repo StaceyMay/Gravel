@@ -8,6 +8,8 @@
     <meta name="description" content="Ideas for revealing content in a schematic box look." />
     <meta name="keywords" content="javascript, plugin, reveal, effect, demo, web development, web design, template" />
     <meta name="author" content="Codrops" />
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
     <link rel="shortcut icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Poppins:700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/normalize.css" />
@@ -63,7 +65,7 @@
         <div class="block-revealer__element" style="transform: scaleX(0); transform-origin: 100% 50% 0px; background-color: rgb(127, 64, 241); opacity: 1;"></div>
       </nav>
     </main>
-    
+
     <script>
     (function() {
       var navEl = document.querySelector('nav.menu'),
