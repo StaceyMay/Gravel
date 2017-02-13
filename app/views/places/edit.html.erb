@@ -2,7 +2,7 @@
   <fieldset>
     <legend>Edit Trip Information:</legend>  
 
-  <%= form_tag '/places/#{@place.id}', method: :patch do %>
+  <%= form_tag "/places/#{@place.id}", method: :patch do %>
 
     <div class="form-group ">
       <%= label_tag :name %>
