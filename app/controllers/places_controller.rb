@@ -51,6 +51,8 @@ before_action :authenticate_user!
     place.save
 
     flash[:info] =  "You have updated your place!"
+
+    redirect_to "/places/#{place.id}"
   end
 
   def destroy
