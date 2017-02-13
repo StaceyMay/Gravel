@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
 
-   get "/", to: "home_pages#home"
+  get "/", to: "home_pages#home"
 
   get "/places", to: "places#index"
   get "/places/new", to: "places#new"
