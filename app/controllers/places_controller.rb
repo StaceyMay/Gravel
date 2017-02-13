@@ -46,7 +46,7 @@ before_action :authenticate_user!
   end
 
   def update
-    place = place.find_by(id: params[:id])
+    place = Place.find_by(id: params[:id])
     place.assign_attributes(address: params[:search],phone: params[:phone], name: params[:name], trip_id: params[:trip_id] , latitude: 0, longitude: 0)
     place.save
 
