@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Hello,
 
-Things you may want to cover:
+This is a fun travel web app I created for my friends and you! It's still a work in progress but feel free to let me know any thoughts:
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+staceymay92@gmail.com
 
 * ...
