@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-before_action :authenticate_user!, except: [:home, :test]
+# before_action :authenticate_user!, except: [:home, :test]
 
 
   def index
