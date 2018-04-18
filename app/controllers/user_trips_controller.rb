@@ -1,5 +1,5 @@
 class UserTripsController < ApplicationController
-# before_action :authenticate_user!
+before_action :authenticate_user!
 
   def create
     @new = UserTrip.new(user_id: current_user.id, trip_id: params[:trip_id])
