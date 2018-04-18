@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
 
   get "/", to: "home_pages#home"
+  get "/privacy", to: "home_pages#privacy"
 
   get "/places", to: "places#index"
   get "/places/new", to: "places#new"
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
 
   get "/trips", to: "trips#index"
   get "/trips/new", to: "trips#new"
+  get "/trips/test", to: "trips#test"
   post "/trips", to: "trips#create"
   get "/trips/:id/edit", to: "trips#edit"
   patch "/trips/:id", to: "trips#update"

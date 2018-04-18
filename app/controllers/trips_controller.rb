@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-before_action :authenticate_user!, except: [:home]
+before_action :authenticate_user!, except: [:home, :test]
 
 
   def index
@@ -72,5 +72,7 @@ before_action :authenticate_user!, except: [:home]
     full_name.split(" ")[0]
   end
 
+  def test
+  end
   
 end
