@@ -19,8 +19,8 @@
     </div>
 
     <%= hidden_field_tag :trip_id, params[:trip_id], class: "form-control" %>
-    <%= hidden_field_tag :longitude, params[:longitude], class: "form-control" %>
-    <%= hidden_field_tag :latitude, params[:latitude], class: "form-control" %>
+    <%= hidden_field_tag :longitude, class: "form-control" %>
+    <%= hidden_field_tag :latitude, class: "form-control" %>
 
     <div class="form-group ">
     <%= submit_tag "Add Places", class: "btn btn-info btn-md" %>
