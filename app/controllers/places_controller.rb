@@ -28,11 +28,8 @@ before_action :authenticate_user!
   end
 
   def create
-    results = Geocoder.search(:address)
-    stats =results.first.coordinates
-
-
-    @place = Place.new(address: params[:search],phone: params[:phone], name: params[:name], trip_id: params[:trip_id] , latitude: stats[0], longitude: stats[1])
+    
+    @place = Place.new(address: params[:search],phone: params[:phone], name: params[:name], trip_id: params[:trip_id] , latitude: result.latitude, longitude: result.latitude)
     @place.save
 
     redirect_to "/trips/#{@place.trip_id}"
