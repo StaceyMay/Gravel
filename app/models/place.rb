@@ -1,6 +1,6 @@
 class Place < ApplicationRecord
 
-  geocoded_by :address, :latitude => :latitude, :longitude => :longitude
+  geocoded_by :address, :latitude => :lat, :longitude => :lon
   after_validation :geocode
   
 
