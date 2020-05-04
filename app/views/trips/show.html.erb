@@ -193,6 +193,7 @@
               <h4><a href="/places/<%=itinerary_place.place.id%>"><%=itinerary_place.place.name%></a></h4>
               <% itinerary_place.place.expenses.each do |expense|%>
                   $<%= expense.amount%>
+                  $<%= expense.description%>
                 - <%= expense.user.name%>
                 </br>
               <%end%>
