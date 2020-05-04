@@ -28,7 +28,7 @@ before_action :authenticate_user!
   end
 
   def create
-    @place = Place.new(address: params[:search],phone: params[:phone], name: params[:name], trip_id: params[:trip_id], latitude: 0, longitude: 0)
+    @place = Place.new(address: params[:search],phone: params[:phone], name: params[:name], trip_id: params[:trip_id])
     @place.save
 
     redirect_to "/trips/#{@place.trip_id}"
