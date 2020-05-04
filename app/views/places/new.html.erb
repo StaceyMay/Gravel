@@ -18,11 +18,12 @@
       <%= text_field_tag :search, params[:search],:id => 'geo-input', class: 'input-field' %>
     </div>
     <script>
-    var results = Geocoder.search(params[:search])
+    var results = Geocoder.coordinates(params[:search])
+    results = <%= expense.amount%>
     </script>
 
     <%= hidden_field_tag :trip_id, params[:trip_id], class: "form-control" %>
-    <%= hidden_field_tag :longitude, class: "form-control" %>
+    <%= hidden_field_tag :longitude, value: results , class: "form-control" %>
     <%= hidden_field_tag :latitude, class: "form-control" %>
 
     <div class="form-group ">
