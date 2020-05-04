@@ -17,8 +17,9 @@
       <%= label_tag :place %>
       <%= text_field_tag :search, params[:search],:id => 'geo-input', class: 'input-field' %>
     </div>
-    results = Geocoder.search(params[:search])
-    results.first.coordinates
+    <script>
+    var results = Geocoder.search(params[:search])
+    </script>
 
     <%= hidden_field_tag :trip_id, params[:trip_id], class: "form-control" %>
     <%= hidden_field_tag :longitude, class: "form-control" %>
